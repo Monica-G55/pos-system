@@ -9,6 +9,7 @@
             </h4>
         </div>
         <div class="card-body">
+            <?php alertMessage(); ?>
              <form action="code.php" method="post">
                    <div class="row">
                     <div class="col-md-12 mb-3">
@@ -29,7 +30,7 @@
                     </div>
                       <div class="col-md-3 mb-3">
                         <label for="">Is Ban</label>
-                        <input type="checkbox" name="is_ban" required class="form-control" style="width:30px; height:30px;">
+                        <input type="checkbox" name="is_ban"  class="form-control" style="width:30px; height:30px;">
                     </div>
                       <div class="col-md-12 mb-3 text-end">
                        <button type="submit" name="saveAdmin" class="btn btn-primary">Save</button>

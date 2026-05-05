@@ -1,6 +1,5 @@
 <?php include('includes/header.php'); ?>
 
-
   <div class="container-fluid px-4">
     <div class="card mt-4 shadow-sm">
         <div class="card-header">
@@ -9,6 +8,12 @@
             </h4>
         </div>
         <div class="card-body">
+            <?php alertMessage(); ?>
+             <?php 
+                    $admin = getAll('admin');
+                    if(mysqli_num_rows($admin) > 0)
+                        {
+                    ?>
              <div class="table-resposive">
                 <table class="table table-striped table-bordered">
                     <thead>
@@ -19,12 +24,31 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                   <tbody>
+                   <tbody>               
+                    <?php foreach($admin as $adminItem) : ?>
                     <tr>
-                        <td></td>
+                        <td><?= $adminItem['id'] ?></td>
+                        <td><?= $adminItem['name'] ?></td>
+                        <td><?= $adminItem['email'] ?></td>
+                        <td>
+                            <a href="admin-edit.php" class="btn btn-success btn-sm">Edit</a>
+                            <a href="admin-delete.php" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
                     </tr>
+                    <?php endforeach; ?>               
                    </tbody>
                 </table>
+                 <?php
+                    }
+                    else
+                        {
+                        ?>
+                        <tr>
+                            <td colspan="4">No Record Found</td>
+                        </tr>   
+                        <?php
+                    }
+                    ?>
              </div>
         </div>
     </div>
