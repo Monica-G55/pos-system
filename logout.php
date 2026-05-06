@@ -1,9 +1,11 @@
 <?php
-session_start();
 
-session_unset();
-session_destroy();
+require 'config/function.php';
 
-header("Location: login.php");
-exit();
+if(isset($_SESSION['loggedIn'])){
+    logoutsession();
+    redirect('login.php','Logged out Successfully');
+}
+
+
 ?>

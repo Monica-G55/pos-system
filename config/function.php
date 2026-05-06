@@ -107,10 +107,10 @@ function getById($tableName,$id){
 }
 
 
-
-
-
-
+function logoutsession(){
+   unset($_SESSION['loggedIn']);
+   unset($_SESSION['loggedInUser']);
+}
 
 
 ?>

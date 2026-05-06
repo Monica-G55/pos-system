@@ -75,9 +75,29 @@ if(isset($_POST['updateAdmin'])){
         } else {
             redirect('admin-edit.php?id='.$adminId,'Something went wrong!');
         }
-    } else {
-        redirect('admin-edit.php?id='.$adminId,'Please fill required fields!');
+    } 
+
+if(isset($_POST['saveCategory'])){
+    $name = validate($_POST['name']);
+    $description = validate($_POST['description']);
+    $status = isset($_POST['status'])== true ? 1:0;
+
+    $data=[
+       'name'=>$name,
+       'description'=>$description,
+       'status'=>$status
+    ];
+
+    $result = insert('category',$data);
+
+    if($result){
+        redirect('category.php',"Category Created Successfully");
+    }else{
+        redirect('category.php','Something Went Wrong!');
     }
+}
+
+
 
 
 ?>
