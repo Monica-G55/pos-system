@@ -66,6 +66,43 @@ function getAll($tableName,$status = NULL){
 
  return mysqli_query($con,$query);
 
+}
+
+function getById($tableName,$id){
+
+    global $con;
+
+    $table=validate($tableName);
+    $id=validate($id);
+
+    $query="SELECT * FROM $table where id='$id' LIMIT 1";
+    $result= mysqli_query($con,$query);
+
+    if($result){
+      if(mysqli_num_rows($result) == 1){
+         
+         $row = mysqli_fetch_assoc($result);
+
+         $response = [
+            'status'=>200,
+            'data'=>$row,
+            'message'=>'Record  Found'
+         ];
+         return $response;
+      }else{
+          
+        $response = [
+             'status'=>404,
+             'message'=>'Record Not Found'
+        ];
+      }
+    }else{
+       $response =[
+          'status'=>500,
+          'message'=>'Something Went Wrong'
+       ];
+       return $response;
+    }
 
 }
 

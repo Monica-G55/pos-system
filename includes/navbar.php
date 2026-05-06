@@ -9,10 +9,20 @@
         <li class="nav-item">
           <a class="nav-link active" href="index.php">Home</a>
         </li>
+        <?php if(isset($_SESSION['loggedIn'])):?>
+
+        <li class="nav-item">
+          <span class="nav-link">👤<?= $_SESSION['loggedInUser']['name'];?></span>
+        </li>
+
+        <li class="nav-item">
+          <a href="logout.php" class="btn btn-danger">Logout</a>
+        </li>
+<?php else: ?>
         <li class="nav-item">
           <a class="nav-link" href="login.php">Login</a>
         </li>
-    
+    <?php endif; ?>
       </ul>
     
     </div>

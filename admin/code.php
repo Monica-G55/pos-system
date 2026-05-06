@@ -40,5 +40,44 @@ if(isset($_POST['saveAdmin'])){
     }
 }
 
+if(isset($_POST['updateAdmin'])){
+
+  $adminId = validate($_POST['adminId']);
+
+    $adminData = getById('admin',$adminId);
+
+    $name= validate($_POST['name']);
+    $email= validate($_POST['email']);
+    $password= validate($_POST['password']);
+    $phone= validate($_POST['phone']);
+    $is_ban= isset($_POST['is_ban']) == true ? 1:0;
+
+
+     if($password != ''){
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+            $passwordQuery = "password='$hashedPassword',";
+        } else {
+            $passwordQuery = "";
+        }
+
+          $query = "UPDATE admin SET 
+                    name='$name',
+                    email='$email',
+                    $passwordQuery
+                    phone='$phone',
+                    is_ban='$is_ban'
+                  WHERE id='$adminId'";
+
+        $result = mysqli_query($con, $query);
+
+       if($result){
+            redirect('admin.php','Admin Updated Successfully!');
+        } else {
+            redirect('admin-edit.php?id='.$adminId,'Something went wrong!');
+        }
+    } else {
+        redirect('admin-edit.php?id='.$adminId,'Please fill required fields!');
+    }
+
 
 ?>
