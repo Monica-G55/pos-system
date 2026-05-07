@@ -107,12 +107,11 @@ if(isset($_POST['updateCategory'])){
    $description= validate($_POST['description']);
    $status= isset($_POST['status']) ? 1 :0;
 
-
-  $query = "UPDATE category SET 
+    $query = "UPDATE category SET 
                     name='$name',
                     description='$description',
-                     status='$status'
-                     WHERE id='$categoryId'";
+                    status='$status'
+                    WHERE id='$categoryId'";
 
    $result = mysqli_query($con,$query);
 
@@ -125,4 +124,96 @@ if(isset($_POST['updateCategory'])){
 }
 
 
+if(isset($_POST['saveProduct'])){
+
+    $category_id = validate($_POST['category_id']);
+    $name = validate($_POST['name']);
+    $description = validate($_POST['description']);
+    $price = validate($_POST['price']);
+    $quantity = validate($_POST['quantity']);
+    $status = isset($_POST['status']) == true ? 1:0;
+
+    
+if($_FILES['image']['size'] > 0){
+
+    $path = '../assets/uploads/products/';
+    
+    $img_extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+
+    $filename = time().'.'.$img_extension;
+
+    move_uploaded_file($_FILES['image']['tmp_name'], $path.$filename);
+
+    $finalImage = 'assets/uploads/products/'.$filename;
+
+}else{
+    $finalImage = '';
+}
+    $data=[
+       'category_id'=>$category_id,
+       'name'=>$name,
+       'description'=>$description,
+       'price'=>$price,
+       'quantity'=>$quantity,
+       'image'=>$finalImage,
+       'status'=>$status
+    ];
+
+    $result = insert('product',$data);
+
+    if($result){
+        redirect('product.php',"Product Created Successfully");
+    }else{
+        redirect('product.php','Something Went Wrong!');
+    }
+}
+
+if(isset($_POST['updateProduct'])){
+
+    $productId = validate($_POST['productId']);
+
+    $productData = getById('product',$productId);
+
+    $category_id = validate($_POST['category_id']);
+    $name = validate($_POST['name']);
+    $description = validate($_POST['description']);
+    $price = validate($_POST['price']);
+    $quantity = validate($_POST['quantity']);
+    $status = isset($_POST['status']) == true ? 1:0;
+
+    
+if($_FILES['image']['size'] > 0){
+
+    $path = '../assets/uploads/products/';
+    
+    $img_extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+
+    $filename = time().'.'.$img_extension;
+
+    move_uploaded_file($_FILES['image']['tmp_name'], $path.$filename);
+
+    $finalImage = 'assets/uploads/products/'.$filename;
+
+}else{
+    $finalImage = '';
+}
+   $query = "UPDATE product SET 
+                    category_id='$category_id',
+                    name='$name',
+                    description='$description',
+                    price='$price',
+                    quantity='$quantity',
+                    status='$status',
+                    image='$finalImage'
+                    WHERE id='$productId'";
+
+   $result = mysqli_query($con,$query);
+
+    if($result){
+            redirect('product.php','Product Updated Successfully!');
+        } else {
+            redirect('product-edit.php?id='.$productId,'Something went wrong!');
+        }
+
+}
 ?>
