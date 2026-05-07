@@ -15,6 +15,7 @@
                  $categoryId = $_GET['id'];
                  $categoryData = getById('category',$categoryId);
                 ?>
+                <input type="hidden" name="categoryId" value="<?= $categoryData['data']['id']; ?>">
                    <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="">Name *</label>
@@ -26,7 +27,7 @@
                     </div>
                       <div class="col-md-6">
                         <label>Status (Unchecked = Visible,Checked = Hidden)</label></br>
-                        <input type="checkbox" name="status" <?= $categoryData['data']['status'] == true ? 1:0;?> class="form-check-input" style="width:30px; height:30px;">
+                        <input type="checkbox" name="status" <?= $categoryData['data']['status'] == 1 ? 'checked': '';?> class="form-check-input" style="width:30px; height:30px;">
                     </div>
                       <div class="col-md-6 mb-3 text-end">
                        <button type="submit" name="updateCategory" class="btn btn-primary">Update</button>

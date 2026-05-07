@@ -97,7 +97,32 @@ if(isset($_POST['saveCategory'])){
     }
 }
 
+if(isset($_POST['updateCategory'])){
 
+  $categoryId = validate($_POST['categoryId']);
+
+  $categoryData = getById('category',$categoryId);
+
+   $name= validate($_POST['name']);
+   $description= validate($_POST['description']);
+   $status= isset($_POST['status']) ? 1 :0;
+
+
+  $query = "UPDATE category SET 
+                    name='$name',
+                    description='$description',
+                     status='$status'
+                     WHERE id='$categoryId'";
+
+   $result = mysqli_query($con,$query);
+
+   if($result){
+            redirect('category.php','Category Updated Successfully!');
+        } else {
+            redirect('edit-category.php?id='.$categoryId,'Something went wrong!');
+        }
+
+}
 
 
 ?>

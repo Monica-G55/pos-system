@@ -42,7 +42,7 @@
                         </td>
                         <td>
                             <a href="edit-category.php?id=<?= $item['id']?>" class="btn btn-success btn-sm">Edit</a>
-                            <a href="category-delete.php?id=<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="delete-category.php?id=<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>               
