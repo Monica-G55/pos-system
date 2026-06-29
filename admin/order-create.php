@@ -8,7 +8,7 @@
                 <a href="#" class="btn btn-danger float-end">Back</a>
             </h4>
         </div>
-        <div class="card-body">
+        <div class="card-body" >
             <?php alertMessage(); ?>
              <form action="order-code.php" method="post">
                    <div class="row">
@@ -45,13 +45,13 @@
         <div class="card-header">
             <h4 class="mb-0">Products</h4>
         </div>
-        <div class="card-body">
+        <div class="card-body"id="productArea">
            <?php
              if(isset($_SESSION['productItems']))
                 {
                 $sessionProducts = $_SESSION['productItems'];
                 ?>
-               <div class="table-responsive">
+               <div class="table-responsive" id="productContent">
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -59,6 +59,7 @@
                             <th>Product Name</th>
                             <th>Price</th>
                             <th>Quantity</th>
+                            <th>Total Price</th>
                             <th>Remove</th>
                         </tr>
                     </thead>
@@ -72,9 +73,11 @@
                                 <td><?= $item['name'];?></td>
                                 <td><?= $item['price'];?></td>
                                 <td>
-                                    <div class="input-group">
+                                    <div class="input-group qtyBox">
+                                        <input type="hidden" class="prodId" value="<?= $item['product_id']; ?>">
                                         <button class="input-group-text decrement">-</button>
                                         <input type="text" value="<?= $item['quantity']; ?>" class="qty quantityInput">
+                                        
                                         <button class="input-group-text increment">+</button>
                                     </div>
                                 </td>
